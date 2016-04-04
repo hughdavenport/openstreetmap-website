@@ -290,7 +290,10 @@ class NotesController < ApplicationController
         @title = t "user.no_such_user.title"
         @not_found_user = params[:display_name]
 
-        render :template => "user/no_such_user", :status => :not_found
+        respond_to do |format|
+          format.html { render :template => "user/no_such_user", :status => :not_found }
+          format.json { @notes = []; render :status => :not_found }
+        end
       end
     end
   end
